@@ -1,9 +1,19 @@
 #Author: Trixia Belleza 
 #Section: B-5L CMSC 150
 #input equations
-E1 <- function (x1, x2, x3) 25 * x1 + 5 * x2 + 1 * x3 + -106.8;
-E2 <- function (x1, x2, x3) 64 * x1 + 1 * x3 + 8 * x2 + -177.2;
-E3 <- function (x1, x2, x3) 144 * x1 + 12 * x2 + 1 * x3 + -279.2;
+#E1 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 4 * x1 + -1 * x2 + 0 * x3 + -1 * x4 + 0 * x5 + 0 * x6 + 0 * x7 + 0 * x8 + 0 * x9 + -80;
+#E2 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) -1 * x1 + 4 * x2 + -1 * x3 + 0 * x4 + -1 * x5 + 0 * x6 + 0 * x7 + 0 * x8 + 0 * x9 + -30;
+#E3 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + -1 * x2 + 4 * x3 + 0 * x4 + 0 * x5 + -1 * x6 + 0 * x7 + 0 * x8 + 0 * x9 + -80;
+#E4 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) -1 * x1 + 0 * x2 + 0 * x3 + 4 * x4 + -1 * x5 + 0 * x6 + -1 * x7 + 0 * x8 + 0 * x9 + -50;
+#E5 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + -1 * x2 + 0 * x3 + -1 * x4 + 4 * x5 + -1 * x6 + 0 * x7 + -1 * x8 + 0 * x9 + 0;
+#E6 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + 0 * x2 + -1 * x3 + 0 * x4 + -1 * x5 + 4 * x6 + 0 * x7 + 0 * x8 + -1 * x9 + -50;
+#E7 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + 0 * x2 + 0 * x3 + -1 * x4 + 0 * x5 + 0 * x6 + 4 * x7 + -1 * x8 + 0 * x9 + -120;
+#E8 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + 0 * x2 + 0 * x3 + 0 * x4 + -1 * x5 + 0 * x6 + -1 * x7 + 4 * x8 + -1 * x9 + -70;
+#E9 <- function (x1, x2, x3, x4, x5, x6, x7, x8, x9) 0 * x1 + 0 * x2 + 0 * x3 + 0 * x4 + 0 * x5 + -1 * x6 + 0 * x7 + -1 * x8 + 4 * x9 + -120;
+
+E1 <- function (x1, x2, x3) 1 * x1 + -0.0190 * x2 + -0.0403 * x3 + -5213.04
+E2 <- function (x1, x2, x3) -0.0334 * x1 + 1 * x2 + -0.1953 * x3 + -106127.5132
+E3 <- function (x1, x2, x3) -0.0002 * x1 + -0.0004 * x2 + 1 * x3 + -124103.9112
 
 #put them in a list
 system <- list(E1, E2, E3);
@@ -36,10 +46,12 @@ getColNames <- function(vars) {
 listOfTerms <- function(system) {
   terms_list = c()
   for (i in 1:length(system)) {
-    eq = deparse(system[i])[2];    #returns "0.3 * x1 + -0.2 * x2 + 10 * x3 + -71.4)"
+   #returns "0.3 * x1 + -0.2 * x2 + 10 * x3 + -71.4)"
+ #   eq = paste(deparse(system[i])[2], deparse(system[i])[3], sep="")
+    eq = deparse(system[i])[2]
     eq = substr(eq,1,nchar(eq)-1)  #remove unnecessary parenthesis at the last character.
                                     #returns "0.3 * x1 + -0.2 * x2 + 10 * x3 + -71.4"
-    
+  
     eq_split = strsplit(eq, " \\+ ")  #split by " + "
     terms_list <- c(terms_list, eq_split)   #returns "0.3 * x1"  "-0.2 * x2" "10 * x3"   "-71.4"
   }
@@ -72,11 +84,10 @@ AugCoeffMatrix <- function(system){
   if(shouldBeNA == 0) {
     #declare matrix
     augcoeffmatrix = matrix(data=NA, nrow=length(system), ncol=length(vars[[1]])+1, dimnames=list(getRowNames(system), getColNames(vars[[1]])))
-  
     for(j in 1:length(listOfTerms(system))){
       sorted_terms <- c()
       term = listOfTerms(system)[[j]]
-  
+      #print(length(term))
       for(i in 1:length(term)) {
         #checks if there's an "x" in the term
         if(grepl("x", term[i])) {
@@ -105,7 +116,7 @@ AugCoeffMatrix <- function(system){
   }
 }
 result = AugCoeffMatrix(system)
-print(result)
+#print(result)
 
 #print("result$augcoeffmatrix")
 #print(result$augcoeffmatrix)
