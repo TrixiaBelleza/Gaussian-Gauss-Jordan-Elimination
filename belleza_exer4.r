@@ -43,8 +43,7 @@ Gaussian <- function(acm, varCount) {
       acm[j,] = acm[j,] - norm
     }
   }
- # print("luh")
-#  print(acm)
+
   #Store x[n] to list kasi may value na siya.
   x <- c()
   lastVar = acm[varCount, varCount+1] / acm[varCount, varCount]
@@ -63,8 +62,7 @@ Gaussian <- function(acm, varCount) {
     coeffWITHunknown = acm[i,i]
     x[i] = (b[i] - sum(coeffsCROSSknows)) / coeffWITHunknown
   }
-  print("[Gaussian]:")
-  print(acm)
+
   return(list(solutionSet = x, matrix = acm))     
 }
 
